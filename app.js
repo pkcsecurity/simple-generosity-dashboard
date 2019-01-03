@@ -3,11 +3,9 @@ const https = require('https');
 const express = require('express')
 const app = express()
 
-app.set('view engine', 'pug')
-
 let port = process.env.PORT;
 if (port == null || port == "") {
-  port = 8000;
+  port = 8080;
 }
 app.listen(port);
 
