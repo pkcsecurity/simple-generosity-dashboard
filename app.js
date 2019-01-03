@@ -20,12 +20,14 @@ function onReport(req, res) {
     resp.on('end', () => {
       const d = JSON.parse(data);
       const filtered = d.filter(x => x.lmcid == "F9LMC120180200");
-      const formatterd = d.map(x => { x.totalgifts = x.totalgifts.toFixed(2); });
+      d.map(x => { x.totalgifts = x.totalgifts.toFixed(2); });
+      d.map(x => { x.refreshdate = new Date().toISOString(); });
 
       const transform = {'<>':'div','html':[
         {'<>':'h1','text':'${title}'},
         {'<>':'h2','text':'${lmcid}'},
-        {'<>':'p','text':'$${totalgifts} raised Online by ${unique-generosity-donors-count} Givers'}
+        {'<>':'p','text':'$${totalgifts} raised Online by ${unique-generosity-donors-count} Givers'},
+        {'<>':'i','text':'Refreshed on  ${refreshdate}'}
       ]};
 
       const html = json2html.transform(filtered,transform);
