@@ -1,0 +1,26 @@
+<!-- From https://codepen.io/nielsenramon/pen/bLPwRQ/ -->
+<style>
+  .t-cb {
+    transition: all .2s cubic-bezier(.33, 1, .66, 1);
+  }
+  .checkbox:checked + .checkbox-wrapper {
+    background-color: #5BC2E7;
+  }
+  .checkbox:checked + .checkbox-wrapper .checkbox-toggle {
+    left: 2rem;
+    background-color: #ccc;
+  }
+</style>
+<div class="dib mr2 silver">
+  Auto-refresh
+</div>
+<div class="relative dib">
+  <input class="absolute z-5 w-100 h-100 o-0 pointer checkbox" type="checkbox"
+	 <% if (on) { %>
+	 checked
+	 <% } %>
+	 onclick="<%- action %>" />
+  <div class="relative z-4 dib w3 h2 bg-mid-gray overflow-hidden br4 v-mid bg-animate checkbox-wrapper">
+    <div class="absolute right-auto left-0 w2 h2 br4 bg-silver shadow-4 t-cb bg-animate checkbox-toggle"></div>
+  </div>
+</div>
