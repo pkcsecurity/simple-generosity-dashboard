@@ -1,55 +1,35 @@
-const json2html = require("node-json2html");
-const https = require("https");
+const request = require("request-promise-native");
 const express = require("express");
 const app = express();
 
-let port = process.env.PORT;
-if (port == null || port == "") {
-  port = 8080;
-}
-app.listen(port);
+app.set("view engine", "ejs");
 
-function onReport(_, res) {
-  https
-    .get("https://give.imb.org/api/projects", resp => {
-      let data = "";
+const usdFormatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD"
+});
 
-      resp.on("data", chunk => {
-        data += chunk;
-      });
-
-      resp.on("end", () => {
-        const d = JSON.parse(data);
-        const filtered = d.filter(x => x.lmcid == "F9LMC120180200");
-        d.map(x => {
-          x.totalgifts = x.totalgifts.toFixed(2);
-        });
-        d.map(x => {
-          x.refreshdate = new Date().toISOString();
-        });
-
-        const transform = {
-          "<>": "div",
-          html: [
-            { "<>": "h1", text: "${title}" },
-            { "<>": "h2", text: "${lmcid}" },
-            {
-              "<>": "p",
-              text:
-                "$${totalgifts} raised Online by ${unique-generosity-donors-count} Givers"
-            },
-            { "<>": "i", text: "Refreshed on  ${refreshdate}" }
-          ]
-        };
-
-        const html = json2html.transform(filtered, transform);
-
-        res.send(html);
-      });
-    })
-    .on("error", err => {
-      console.log("Error: " + err.message);
+app.get("/:lmcid", async (req, res) => {
+  try {
+    const apiResp = await request({
+      method: "GET",
+      uri: "https://give.imb.org/api/projects",
+      strictSSL: true,
+      json: true
     });
-}
+    const proj = apiResp.find(x => x.lmcid === req.params.lmcid);
+    res.render("index", {
+      imageurl: proj.url,
+      title: proj.title,
+      goal: usdFormatter.format(proj.totalgoal),
+      raised: usdFormatter.format(proj.totalgifts),
+      percent: Math.floor((proj.totalgifts / proj.totalgoal) * 100),
+      donorcount: proj["unique-generosity-donors-count"]
+    });
+  } catch (e) {
+    console.error(`Error requesting Generosity API: ${e.message}`);
+    res.status(500).send("Error retrieving project data!");
+  }
+});
 
-app.get("/F9LMC120180200", onReport);
+app.listen(process.env.PORT || 8080);

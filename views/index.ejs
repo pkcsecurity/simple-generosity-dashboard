@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title><%= title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css" />
+    <style>
+      .cover {
+        background-size: cover !important;
+      }
+      .dt {
+        display: table;
+      }
+      .dtc {
+        display: table-cell;
+      }
+      .athelas {
+        font-family: athelas, georgia, serif;
+      }
+      .i {
+        font-style: italic;
+      }
+      .fs-normal {
+        font-style: normal;
+      }
+      .main-bg::after {
+        content: "";
+        background-color: #5BC2E7;
+        background: url("<%= imageurl %>") no-repeat center;
+        background-size: cover !important;
+        opacity: 0.2;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: -1;
+      }
+    </style>
+  </head>
+  <body>
+    <article class="athelas">
+      <div
+        class="vh-100 dt w-100 tc near-black cover main-bg">
+        <div class="dtc v-mid">
+          <header class="near-black-80">
+            <h2 class="f3 fw1 ttu tracked mb2 lh-title"><%= percent %>% raised</h2>
+            <h3 class="f3 fw1 lh-title">of the <%= goal %> goal</h3>
+          </header>
+          <h1 class="f-headline-l fw1 i near-black-75"><%= raised %></h1>
+          <blockquote class="ph0 mh0 measure f2 lh-copy center">
+            <p class="fw1 near-black-90">
+              <%= title %>
+            </p>
+            <cite class="f3 ttu tracked fs-normal near-black-80">Raised by <%= donorcount %> donors</cite>
+          </blockquote>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>
