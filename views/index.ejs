@@ -30,8 +30,8 @@
     <% } %>
   </head>
   <body>
-    <div class="w-100 vh-100 flex flex-column near-black main-bg freight">
-      <div class="tc flex-auto overflow-container">
+    <div class="w-100 vh-100 flex flex-column near-black main-bg freight overflow-hidden">
+      <div class="tc flex-auto overflow-y-auto">
 	<% if (goal !== "-$1.00") { %>
 	  <header>
 	    <h2 class="f2 fw4 ttu tracked mb2 lh-title"><%= percent %>% raised</h2>
@@ -46,7 +46,7 @@
 	  <cite class="f3 ttu tracked fs-normal">Raised by <%= donorcount %> donors</cite>
 	</blockquote>
       </div>
-      <div class="self-end ml-auto pr3 pb1">
+      <div class="self-end ml-auto pr3 pb2">
 	<%- include("switch", {
 	  on: autoreload,
 	  action: autoreload ?
