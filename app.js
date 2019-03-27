@@ -40,4 +40,6 @@ async function loadPage(req, res, autoreload) {
 app.get("/:lmcid", async (req, res) => loadPage(req, res, false));
 app.get("/r/:lmcid", async (req, res) => loadPage(req, res, true));
 
+app.get("/", (_, res) => res.redirect("/F9LMCO"));
+
 app.listen(process.env.PORT || 8080);

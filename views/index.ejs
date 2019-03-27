@@ -6,62 +6,54 @@
     <link href="https://use.typekit.net/duk7ddv.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css" />
     <style>
-      .cover {
-        background-size: cover !important;
-      }
-      .freight {
-        font-family: freight-sans-pro,sans-serif;
-      }
-      .main-bg::after {
-        content: "";
-        background-color: #5BC2E7;
-        background: url("<%= imageurl %>") no-repeat center;
-        background-size: cover !important;
-        opacity: 0.2;
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        z-index: -1;
-      }
+     .freight {
+       font-family: freight-sans-pro,sans-serif;
+     }
+     .main-bg::after {
+       content: "";
+       background-color: #5BC2E7;
+       background: url("<%= imageurl %>") no-repeat center;
+       background-size: cover !important;
+       opacity: 0.2;
+       position: absolute;
+       top: 0;
+       left: 0;
+       bottom: 0;
+       right: 0;
+       z-index: -1;
+     }
     </style>
     <% if (autoreload) { %>
-    <script>
-      window.setInterval(() => location.reload(), 30000);
-    </script>
+      <script>
+       window.setInterval(() => location.reload(), 30000);
+      </script>
     <% } %>
   </head>
   <body>
-    <article class="freight">
-      <div
-        class="vh-100 dt w-100 tc near-black cover main-bg">
-        <div class="dt-row">
-	  <div class="dtc v-mid">
-            <% if (goal !== "-$1.00") { %>
-	    <header>
-              <h2 class="f2 fw4 ttu tracked mb2 lh-title"><%= percent %>% raised</h2>
-              <h3 class="f3 fw4 lh-title">of the <%= goal %> goal</h3>
-	    </header>
-            <% } %>
-	    <h1 class="f-headline-l fw5 i"><%= raised %></h1>
-            <blockquote class="ph0 mh0 measure f1 lh-copy center">
-              <p class="fw5">
-		<%= title %>
-              </p>
-              <cite class="f3 ttu tracked fs-normal">Raised by <%= donorcount %> donors</cite>
-            </blockquote>
-          </div>
-	</div>
-	<div class="dt-row v-btm fr pr3 pb1">
-	  <%- include("switch", {
-                  on: autoreload,
-                  action: autoreload ?
-                    "location.replace(location.pathname.substring(2))" :
-                    "location.replace('/r' + location.pathname)"
-          }) %>
-	</div>
+    <div class="w-100 vh-100 flex flex-column near-black main-bg freight">
+      <div class="tc flex-auto overflow-container">
+	<% if (goal !== "-$1.00") { %>
+	  <header>
+	    <h2 class="f2 fw4 ttu tracked mb2 lh-title"><%= percent %>% raised</h2>
+	    <h3 class="f3 fw4 lh-title">of the <%= goal %> goal</h3>
+	  </header>
+	<% } %>
+	<h1 class="f-subheadline f-headline-ns fw5 i"><%= raised %></h1>
+	<blockquote class="ph0 mh0 measure f1 lh-copy center">
+	  <p class="fw5">
+	    <%= title %>
+	  </p>
+	  <cite class="f3 ttu tracked fs-normal">Raised by <%= donorcount %> donors</cite>
+	</blockquote>
       </div>
-    </article>
+      <div class="self-end ml-auto pr3 pb1">
+	<%- include("switch", {
+	  on: autoreload,
+	  action: autoreload ?
+	  "location.replace(location.pathname.substring(2))" :
+	  "location.replace('/r' + location.pathname)"
+	}) %>
+      </div>
+    </div>
   </body>
 </html>
