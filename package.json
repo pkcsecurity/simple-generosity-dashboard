@@ -1,6 +1,6 @@
 {
   "name": "simple-generosity-dashboard",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A live giving dashboard for projects on IMB Generosity",
   "main": "app.js",
   "scripts": {
