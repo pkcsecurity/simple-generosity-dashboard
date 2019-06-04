@@ -27,7 +27,7 @@ async function loadPage(req, res, autoreload) {
       title: proj.title,
       goal: usdFormatter.format(proj.totalgoal),
       raised: usdFormatter.format(proj.totalgifts),
-      onsite: usdFormatter.format(proj.totalonsite || 0),
+      onsite: usdFormatter.format(proj.totalinbooth || 0),
       percent: ((proj.totalgifts / proj.totalgoal) * 100).toFixed(2),
       donorcount: proj["unique-generosity-donors-count"],
       autoreload: autoreload
