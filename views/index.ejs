@@ -38,7 +38,10 @@
 	    <h3 class="f3 fw4 lh-title">of the <%= goal %> goal</h3>
 	  </header>
 	<% } %>
-	<h1 class="f-subheadline f-headline-ns fw5 i"><%= raised %></h1>
+	<h1 class="f-subheadline f-headline-ns fw5 i mb0"><%= raised %></h1>
+	<% if (onsite !== "$0.00") { %>
+	  <h3 class="f3 fw4 lh-solid mt1"><%= onsite %> raised on site</h3>
+	  <% } %>
 	<blockquote class="ph0 mh0 measure f1 lh-copy center">
 	  <p class="fw5">
 	    <%= title %>
